@@ -1,0 +1,24 @@
+의존성 흐름 기준 정석 순서:
+    port/in → application/service → adapter/out
+
+application/port/in (인터페이스):
+    "어떤 기능을 실행할지" 계약만 정의
+application/service (IssueCouponService, GetAdminSummaryService, RetrySettlementService):
+    port/in 인터페이스를 implements 해서
+    실제 비즈니스 흐름(멱등성 확인 → 동시성 전략 호출 → 잔여 수량 차감/발급 저장 → 후속 작업 생성)을 조립
+    이때 DB나 Redis를 직접 부르지 않고 application/port/out 인터페이스를 주입받아서 호출
+
+adapter/out (persistence, redis, external):
+    service가 부르는 port/out 인터페이스를 실제로 구현하는 곳
+    (MySQL/JPA, Redis, 외부 정산 클라이언트)
+
+<코드를 작성할 때 편한 실전 팁>
+application/service 먼저 짜는 경우:
+    "아, 발급 흐름이 이런 식으로 돌아가는구나!" 하는 전체 시나리오와 로직이
+    먼저 눈앞에 그려져서 흐름 파악하기 좋음!
+    아직 adapter/out이 없어도 port/out 인터페이스만 있으면
+    서비스 코드를 먼저 작성할 수 있음(근데 좀 더 어려운 듯)
+
+adapter/out 먼저 짜는 경우:
+    DB 쿼리나 Redis 연동, 외부 클라이언트 같은 바깥 기술 연결부터
+    하나씩 검증하면서 안쪽으로 들어오고 싶을 때 편한 순서
