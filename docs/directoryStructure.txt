@@ -1,0 +1,113 @@
+// Directory Structure
+
+coupon-settlement-lab/
+├── README.md
+├── .gitignore
+├── build.gradle
+├── settings.gradle
+├── compose.yaml
+├── gradlew
+├── gradlew.bat
+│
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── jyituaeb/
+│   │   │           └── couponsettlementlab/
+│   │   │               ├── CouponSettlementLabApplication.java
+│   │   │               │
+│   │   │               ├── global/
+│   │   │               │   ├── config/
+│   │   │               │   │   ├── CorsConfig.java
+│   │   │               │   │   ├── OpenApiConfig.java
+│   │   │               │   │   └── RedisConfig.java
+│   │   │               │   ├── error/
+│   │   │               │   │   ├── BusinessException.java
+│   │   │               │   │   ├── ErrorCode.java
+│   │   │               │   │   └── GlobalExceptionHandler.java
+│   │   │               │   └── response/
+│   │   │               │       └── ApiResponse.java
+│   │   │               │
+│   │   │               └── coupon/
+│   │   │                   ├── domain/
+│   │   │                   │   ├── CouponEvent.java
+│   │   │                   │   ├── CouponIssue.java
+│   │   │                   │   ├── EventStatus.java
+│   │   │                   │   ├── IssueStatus.java
+│   │   │                   │   ├── SettlementTask.java
+│   │   │                   │   └── TaskStatus.java
+│   │   │                   │
+│   │   │                   ├── application/
+│   │   │                   │   ├── port/
+│   │   │                   │   │   ├── in/
+│   │   │                   │   │   │   ├── GetAdminSummaryUseCase.java
+│   │   │                   │   │   │   ├── IssueCouponUseCase.java
+│   │   │                   │   │   │   └── RetrySettlementUseCase.java
+│   │   │                   │   │   └── out/
+│   │   │                   │   │       ├── CouponEventPort.java
+│   │   │                   │   │       ├── CouponIssuePort.java
+│   │   │                   │   │       ├── CouponStockPort.java
+│   │   │                   │   │       ├── SettlementClientPort.java
+│   │   │                   │   │       └── SettlementTaskPort.java
+│   │   │                   │   ├── service/
+│   │   │                   │   │   ├── GetAdminSummaryService.java
+│   │   │                   │   │   ├── IssueCouponService.java
+│   │   │                   │   │   └── RetrySettlementService.java
+│   │   │                   │   └── dto/
+│   │   │                   │       ├── AdminSummaryResult.java
+│   │   │                   │       ├── IssueCouponCommand.java
+│   │   │                   │       └── IssueCouponResult.java
+│   │   │                   │
+│   │   │                   └── adapter/
+│   │   │                       ├── in/
+│   │   │                       │   ├── web/
+│   │   │                       │   │   ├── AdminController.java
+│   │   │                       │   │   ├── CouponController.java
+│   │   │                       │   │   ├── IssueCouponRequest.java
+│   │   │                       │   │   └── IssueCouponResponse.java
+│   │   │                       │   └── scheduler/
+│   │   │                       │       └── SettlementRetryScheduler.java
+│   │   │                       └── out/
+│   │   │                           ├── persistence/
+│   │   │                           │   ├── CouponEventPersistenceAdapter.java
+│   │   │                           │   ├── CouponIssuePersistenceAdapter.java
+│   │   │                           │   ├── JpaCouponEventRepository.java
+│   │   │                           │   ├── JpaCouponIssueRepository.java
+│   │   │                           │   ├── JpaSettlementTaskRepository.java
+│   │   │                           │   └── SettlementTaskPersistenceAdapter.java
+│   │   │                           ├── redis/
+│   │   │                           │   └── RedisCouponStockAdapter.java
+│   │   │                           └── external/
+│   │   │                               └── ExternalSettlementAdapter.java
+│   │   │
+│   │   └── resources/
+│   │       ├── application.yml
+│   │       ├── application-local.yml
+│   │       └── db/
+│   │           └── schema.sql
+│   │
+│   └── test/
+│       └── java/
+│           └── com/
+│               └── jyituaeb/
+│                   └── couponsettlementlab/
+│                       ├── CouponSettlementLabApplicationTests.java
+│                       └── coupon/
+│                           └── application/
+│                               └── service/
+│                                   └── IssueCouponServiceTest.java
+│
+└── frontend/
+    ├── package.json
+    ├── index.html
+    └── src/
+        ├── main.jsx
+        ├── App.jsx
+        ├── pages/
+        │   ├── IssuePage.jsx
+        │   └── AdminPage.jsx
+        ├── api/
+        │   └── couponApi.js
+        └── components/
+            └── .gitkeep
