@@ -1,0 +1,16 @@
+application/port/in (인바운드 포트 = 유스케이스 인터페이스):
+    외부(컨트롤러, 스케줄러 등)가 애플리케이션에 "어떤 기능을 실행해 줘"라고 요청하는 창구 인터페이스
+    예: IssueCouponUseCase, GetAdminSummaryUseCase, RetrySettlementUseCase
+    (계층형으로 치면 서비스(Service)가 제공하는 핵심 기능 명세에 가까운 역할)
+
+application/port/out (아웃바운드 포트 = 저장소/외부연동 인터페이스):
+    애플리케이션 서비스가 DB, Redis, 외부 시스템에 "데이터를 저장/조회해 줘"라고 요청하는 인터페이스
+    예: CouponEventPort, CouponIssuePort, SettlementTaskPort, CouponStockPort, SettlementClientPort
+    (계층형에서 레포지토리(Repository) 인터페이스가 하던 역할을 여기서 수행)
+
+adapter/out/... (아웃바운드 어댑터 = 실제 구현체):
+    port/out 인터페이스를 실제로 구현하는 MySQL/JPA, Redis, 외부 정산 클라이언트 코드가 들어가는 곳이에요.
+
+<in과 out으로 나누는 이유>
+    in: "우리 서비스가 해주는 일(발급하기, 요약 보기, 재시도하기)"을 인터페이스로 고정해 두는 곳
+    out: "그 일을 하려면 DB/Redis/외부 API가 필요해"라는 요구를 인터페이스로 정의해 두는 곳
